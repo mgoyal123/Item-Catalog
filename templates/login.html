@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<link href='http://fonts.googleapis.com/css?family=Roboto:400,300,700' rel='stylesheet' type='text/css'>
+		<link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css">
+		<link rel=stylesheet type=text/css href="{{ url_for('static', filename='style.css') }}">
+		<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+		<script src="https://apis.google.com/js/client:platform.js?onload=start"></script>
+	</head>
+	<body>
+		<div class="container-fluid">
+			<header>
+				<div class="container">
+					<div class="row padding-top padding-bottom">
+						<div class="col-md-6">
+							<a href="{{url_for('home.allGames')}}">
+								<span class="glyphicon glyphicon-home" aria-hidden="true"></span><div class="title">Catalog App</div>
+							</a>
+						</div>
+					</div>
+				</div>
+			</header>
+			<main class="container-fluid fill">
+				<div class="container catalog margin-top">
+					<div id="signInButton">
+				        <span class="g-signin"
+				            data-scope="openid email"
+				            data-clientid="467405043633-g6ruhrhuttnejv6g4j5kj07p88iaqsdf.apps.googleusercontent.com"
+				            data-redirecturi="postmessage"
+				            data-accesstype="offline"
+				            data-cookiepolicy="single_host_origin"
+				            data-callback="signInCallback"
+				            data-approvalprompt="force">
+				        </span>
+					</div>
+
+					<div id="result"></div>
+				 	<script>
+
+						function signInCallback(authResult) {
+							if (authResult['code']){
+								$('#signInButton').attr('style','display: none');
+								$.ajax({
+									type: 'POST',
+									url: '/gconnect?state={{STATE}}',
+									processData: false,
+									contentType: 'application/octet-stream; charset=utf-8',
+									data: authResult['code'],
+									success: function(result){
+										if (result){
+											$('#result').html('Login successful!</br>'+result+'</br>Redirecting...')
+											setTimeout(function(){
+												window.location.href = '/catalog';
+											},4000);
+										}
+										else if(authResult['error']){
+											console.log("There was an error: "+ authResult['error']);
+										}
+										else
+										{
+											$('#result').html("Failed to make server side call, check your configuration and console.");
+										}
+									}
+								});
+							}
+						}
+					</script>
+					<script>
+					    window.fbAsyncInit = function() {
+						  FB.init({
+						    appId      : '289588041548553',
+						    cookie     : true,  // enable cookies to allow the server to access
+						                        // the session
+						    xfbml      : true,  // parse social plugins on this page
+						    version    : 'v2.8'	 // use version 2.8
+						  });
+						  };
+						  // Load the SDK asynchronously
+						  (function(d, s, id) {
+						    var js, fjs = d.getElementsByTagName(s)[0];
+						    if (d.getElementById(id)) return;
+						    js = d.createElement(s); js.id = id;
+						    js.src = "//connect.facebook.net/en_US/sdk.js";
+						    fjs.parentNode.insertBefore(js, fjs);
+						  }(document, 'script', 'facebook-jssdk'));
+
+					  function sendTokenToServer() {
+							var access_token = FB.getAuthResponse()['accessToken'];
+							console.log("Fetching your acess_token");
+							console.log(access_token);
+							FB.api('/me',function(response){
+								console.log("successful login for: "+ response.name);
+								$.ajax({
+									type: 'POST',
+									url: '/fbconnect?state={{STATE}}',
+									processData: 'false',
+									data: access_token,
+									contentType : 'application/octet-stream; charset=utf-8',
+									success : function(result){
+										if(result){
+											$('#result').html('Login successful!</br>'+result+'</br>Redirecting...')
+											setTimeout(function(){
+												window.location.href = '/catalog';
+											},4000);
+										}
+										else
+										{
+											$('#result').html("Failed to make server side call, check your configuration and console.");
+										}
+									}
+								});
+							});
+						}
+					</script>
+					<button>
+						<fb:login-button scope="public_profile,email" onlogin= "sendTokenToServer();">
+						<a href='javascript:sendTokenToServer()'> Login with Facebook </a>
+						</fb:login-button>
+					</button>
+				</div>
+			</main>
+		</div>
+	</body>
+</html>

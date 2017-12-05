@@ -1,0 +1,39 @@
+{% extends "main.html" %}
+{% block content %}
+{% include "header.html" %}
+
+<main class="container-fluid fill">
+	<div class="container catalog margin-top">
+		<div class = 'flash'>
+			{% with messages = get_flashed_messages() %}
+      			{% if messages %}
+          			<ul>
+        				{% for message in messages %}
+            				<li> <strong> {{ message }} </strong> </li>
+        				{% endfor %}
+        			</ul>
+        		{% endif %}
+    		{% endwith %}
+		</div>
+		<div class="row">
+			<aside class="border-right padding-left col-md-3">
+				<h2> Categories </h2>
+				{% for i in all_games %}
+				<div class="games margin-bottom">
+				<a href="{{ url_for('itemspage.gameItems', game_name = i.name)}}"> {{i.name}} </a>
+				</div>
+				{% endfor %}
+			</aside>
+			<section class="padding-left col-md-9">
+				<h2> {{items[0].game.name}} Items ({{ items|length }} items)</h2>
+				{% for i in items %}
+					<div class="margin-bottom">
+						<a href="{{ url_for('descpage.itemDesc', item_name=i.name, game_name=i.game.name) }}">{{i.name}}</a>
+					</div>
+				{% endfor %}
+			</section>
+		</div>
+	</div>
+</main>
+
+{% endblock %}

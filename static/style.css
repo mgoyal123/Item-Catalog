@@ -1,0 +1,142 @@
+* {
+	font-family: "Helvetica Neue Bold", Roboto, Helvetica, Arial, sans-serif;
+	font-weight: 700;
+}
+
+body {
+    height: 100%;
+    width: 100%;
+    position: absolute;
+}
+
+header {
+	background-color: #36486b;
+	color: #FFFFFF;
+}
+
+em {
+	color: #A9A9A9;
+}
+
+h2 {
+	font-size: 30px;
+	color: #36486b;
+	line-height: 29px;
+}
+
+p {
+ 	font-family: "Helvetica Neue", Roboto, Helvetica, Arial, sans-serif;
+ 	font-size: 16px;
+ 	color: #000000;
+ 	line-height: 24px;
+ 	font-weight: 400;
+ }
+
+a {
+ 	font-size: 16px;
+ 	color: #bc5a45;
+ 	line-height: 24px;
+ 	padding-bottom: 20px;
+ }
+
+.container-fluid {
+	height: inherit;
+}
+
+.fill {
+	background-color: #D3D3D3;
+}
+
+.catalog {
+	border: 2px solid grey;
+	background-color: #FFFFFF;
+}
+
+.border-right {
+	border-right: 1px solid grey;
+}
+
+.title {
+	font-family: "Helvetica Neue Light", Roboto, Helvetica, Arial, sans-serif;
+	font-size: 50px;
+	color: #FFFFFF;
+	line-height: 50px;
+	font-weight: 400;
+}
+
+
+.padding-top {
+	padding-top: 20px;
+}
+
+.padding-bottom {
+	padding-bottom: 20px;
+}
+
+.padding-left {
+	padding-left: 30px;
+}
+
+.padding-right {
+	padding-right: 30px;
+}
+
+.margin-bottom {
+	margin-bottom: 10px;
+}
+
+.margin-top {
+	margin-top: 20px;
+}
+
+.margin-right {
+	margin-right: 30px;
+}
+
+.padding-none {
+	padding: 0;
+}
+.btn {
+	padding: 15px;
+	margin: 10px;
+	border-style: outset;
+	border-color: #9FB80A;
+	border-width: 2px;
+	color: #9FB80A;
+}
+.btn:hover {
+	border-color: #9FB80A;
+}
+
+.btn.edit {
+	margin-left: 0;
+}
+
+.btn.log {
+	background-color: #bc5a45;
+	color: #FFFFFF;
+}
+
+.btn.delete {
+	border-color: #aaaaaa;
+	color: #000000	;
+}
+.btn.delete:hover {
+	border-color: #aaaaaa;
+	color: red;
+}
+.glyphicon {
+	margin-right: 10px;
+}
+
+.flash {
+	background-color: #D3D3D3;
+	width:100%;
+	text-decoration: none;
+}
+
+.flash li {
+	list-style-type: none;
+	text-align: center;
+
+}
